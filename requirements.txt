@@ -1,0 +1,21 @@
+# Python 3.10+
+
+# Core ML
+tensorflow>=2.13.0
+numpy>=1.24.3,<2.0
+typing-extensions>=4.5.0
+
+# Flask backend
+flask>=3.0.0
+flask-cors>=4.0.0
+
+# Computer vision
+mediapipe>=0.10.9
+opencv-python>=4.8.0
+
+# Model utilities
+h5py>=3.9.0
+
+# Optional:
+# Install tf_keras if you face legacy .h5 model compatibility issues
+# pip install tf_keras

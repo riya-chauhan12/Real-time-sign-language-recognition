@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ISL Bridge — Real-time Sign Language</title>
+  <link rel="stylesheet" href="/static/css/style.css"/>
+</head>
+<body>
+
+<!-- ── Header ── -->
+<header class="header">
+  <div class="header-brand">
+    <div class="brand-dot"></div>
+    <span class="brand-name">ISL Bridge</span>
+    <span class="brand-sub">Indian Sign Language · Real-time</span>
+  </div>
+  <div class="header-status" id="conn-status">
+    <span class="status-dot idle"></span>
+    <span id="conn-label">Connecting…</span>
+  </div>
+</header>
+
+<!-- ── Main grid ── -->
+<main class="layout">
+
+  <!-- LEFT: Camera -->
+  <section class="panel camera-panel">
+    <div class="panel-label">Live Camera</div>
+    <div class="camera-wrap">
+      <img id="video-feed" src="/api/video_feed" alt="Webcam feed"/>
+      <div class="camera-corner tl"></div>
+      <div class="camera-corner tr"></div>
+      <div class="camera-corner bl"></div>
+      <div class="camera-corner br"></div>
+    </div>
+
+    <!-- State badge under camera -->
+    <div class="state-row">
+      <div class="state-badge" id="state-badge">
+        <span class="state-icon" id="state-icon">◉</span>
+        <span id="state-label">Idle</span>
+      </div>
+      <div class="hand-indicator" id="hand-indicator">
+        <span class="hand-dot" id="hand-dot"></span>
+        <span id="hand-label">No hand</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- RIGHT: Inference panel -->
+  <section class="panel right-panel">
+
+    <!-- Current prediction -->
+    <div class="card prediction-card">
+      <div class="card-header">Current Detection</div>
+
+      <div class="word-display" id="word-display">—</div>
+
+      <!-- Confidence bar -->
+      <div class="bar-group">
+        <div class="bar-label-row">
+          <span class="bar-label">Confidence</span>
+          <span class="bar-value" id="conf-value">0%</span>
+        </div>
+        <div class="bar-track">
+          <div class="bar-fill conf-fill" id="conf-bar"></div>
+          <div class="bar-threshold" id="conf-threshold" style="left:72%"></div>
+        </div>
+      </div>
+
+      <!-- Margin bar -->
+      <div class="bar-group">
+        <div class="bar-label-row">
+          <span class="bar-label">Margin (top-1 vs top-2)</span>
+          <span class="bar-value" id="margin-value">0%</span>
+        </div>
+        <div class="bar-track">
+          <div class="bar-fill margin-fill" id="margin-bar"></div>
+          <div class="bar-threshold" style="left:18%"></div>
+        </div>
+      </div>
+
+      <!-- Hold progress (visible only during HOLD state) -->
+      <div class="bar-group" id="hold-group" style="display:none">
+        <div class="bar-label-row">
+          <span class="bar-label">Confirming gesture…</span>
+          <span class="bar-value" id="hold-value">0%</span>
+        </div>
+        <div class="bar-track">
+          <div class="bar-fill hold-fill" id="hold-bar"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Commit flash -->
+    <div class="commit-flash" id="commit-flash">
+      <span class="flash-icon">✓</span>
+      <span id="flash-word"></span>
+    </div>
+
+    <!-- Sentence output -->
+    <div class="card sentence-card">
+      <div class="card-header">
+        <span>Sentence</span>
+        <button class="btn-clear" id="btn-clear" onclick="clearSentence()">Clear</button>
+      </div>
+      <div class="sentence-display" id="sentence-display">
+        <span class="sentence-placeholder">Start signing to build a sentence…</span>
+      </div>
+    </div>
+
+    <!-- Vocabulary chips -->
+    <div class="card vocab-card">
+      <div class="card-header">Active Vocabulary</div>
+      <div class="vocab-chips" id="vocab-chips"></div>
+    </div>
+
+  </section>
+</main>
+
+<script src="/static/js/app.js"></script>
+</body>
+</html>
