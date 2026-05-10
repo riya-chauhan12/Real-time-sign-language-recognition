@@ -131,7 +131,7 @@ The model loader handles `.h5` files across TF 2.13 through 2.21+, working aroun
 └─────────────────────────────────────────┘
 ```
 
-*Replace this block with your actual demo GIF or screenshot.*
+
 
 ---
 
